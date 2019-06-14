@@ -52,7 +52,25 @@
         });
 
 
+        // Firebase watcher + initial loader HINT: This code behaves similarly to .on("value")
+        dataRef.ref().on("child_added", function(childSnapshot) {
 
+            // Log everything that's coming out of snapshot
+            var newTrain = childSnapshot.val().train;
+            var trainDest = childSnapshot.val().destination;
+            var trainFreq = childSnapshot.val().frequency;
+
+            // Create new row
+            var newRow = $("<tr>").append(
+                $("<td>").text(newTrain),
+                $("<td>").text(trainDest),
+                $("<td>").text(trainFreq),
+                $("<td>").text("00:00"),
+                $("<td>").text("00:00"));
+
+            $("#train-table").append(newRow);
+
+        });
 
 
         // // Assumptions
